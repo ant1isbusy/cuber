@@ -1,0 +1,11 @@
+[package]
+name = "cuber"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["@ant1isbusy"]
+license = "MIT"
+description = "A package for all things cubing related."
+repository = "https://github.com/ant1isbusy/typst-placard"
+keywords = ["tutorial", "cubing"]
+categories = ["fun"] 
+exclude= ["docs/"]
