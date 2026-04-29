@@ -342,6 +342,10 @@
   let base = move_str.first()
   let is_prime = move_str.ends-with("'")
   let is_double = move_str.ends-with("2")
+  let is_w_wide = move_str.ends-with("w") or move_str.ends-with("W")
+  if is_w_wide {
+    base = lower(base)
+  }
 
   let apply_times = if is_double { 2 } else if is_prime { 3 } else { 1 }
 
