@@ -1,5 +1,5 @@
 
-#let SOLVED_CUBE = (
+#let SOLVED-CUBE = (
   "W", "W", "W", "W", "W", "W", "W", "W", "W", // U (0-8)
   "R", "R", "R", "R", "R", "R", "R", "R", "R", // R (9-17)
   "G", "G", "G", "G", "G", "G", "G", "G", "G", // F (18-26)
@@ -8,7 +8,7 @@
   "B", "B", "B", "B", "B", "B", "B", "B", "B"  // B (45-53)
 )
 
-#let F2L_CUBE = (
+#let FTL-CUBE = (
   "X", "X", "X", "X", "X", "X", "X", "X", "X", // U
   "X", "X", "X", "R", "R", "R", "R", "R", "R", // R
   "X", "X", "X", "B", "B", "B", "B", "B", "B", // F
@@ -333,7 +333,7 @@
 )
 
 // maps wide moves to their (Face, Slice, isSlicePrime) equivalents.
-#let WIDE_MAP = (
+#let WIDE-MAP = (
   "r": ("R", "M", true),   // r = R + M'
   "l": ("L", "M", false),  // l = L + M
   "u": ("U", "E", true),   // u = U + E'
@@ -342,43 +342,43 @@
   "b": ("B", "S", true)    // b = B + S'
 )
 
-#let apply_base_move(state, move_char) = {
-  let map = PERMUTATIONS.at(move_char)
+#let apply-base-move(state, move-char) = {
+  let map = PERMUTATIONS.at(move-char)
   map.map(idx => state.at(idx))
 }
 
-#let apply_move(cube_state, move_str) = {
-  let base = move_str.first()
-  let is_prime = move_str.ends-with("'")
-  let is_double = move_str.ends-with("2")
-  let is_w_wide = move_str.ends-with("w") or move_str.ends-with("W")
-  if is_w_wide {
+#let apply-move(cube-state, move-str) = {
+  let base = move-str.first()
+  let is-prime = move-str.ends-with("'") or move-str.ends-with("3")
+  let is-double = move-str.ends-with("2")
+  let is-w-wide = move-str.ends-with("w") or move-str.ends-with("W") // included capitalized w even though it's not WCA notation, more of a user-friendly option
+  if is-w-wide {
     base = lower(base)
   }
 
-  let apply_times = if is_double { 2 } else if is_prime { 3 } else { 1 }
+  let apply-times = if is-double { 2 } else if is-prime { 3 } else { 1 }
 
-  let moves_to_execute = ()
+  let moves-to-execute = ()
  
   if base in ("r", "l", "u", "d", "f", "b") {
-    let (face, slice, prime_slice) = WIDE_MAP.at(base)
+    let (face, slice, prime_slice) = WIDE-MAP.at(base)
 
-    let slice_times = if prime_slice { 4 - apply_times } else { apply_times }
+    let slice_times = if prime_slice { 4 - apply-times } else { apply-times }
 
-    moves_to_execute.push((face, apply_times))
-    moves_to_execute.push((slice, slice_times))
+    moves-to-execute.push((face, apply-times))
+    moves-to-execute.push((slice, slice_times))
   } else {
-    moves_to_execute.push((base, apply_times))
+    moves-to-execute.push((base, apply-times))
   }
 
-  let current_state = cube_state
-  for (comp_char, times) in moves_to_execute {
+  let current-state = cube-state
+  for (comp-char, times) in moves-to-execute {
     for _ in range(times) {
-      current_state = apply_base_move(current_state, comp_char)
+      current-state = apply-base-move(current-state, comp-char)
     }
   }
 
-  return current_state
+  return current-state
 }
 
 

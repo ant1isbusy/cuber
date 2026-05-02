@@ -7,5 +7,5 @@ license = "MIT"
 description = "A package for all things cubing related."
 repository = "https://github.com/ant1isbusy/typst-placard"
 keywords = ["tutorial", "cubing"]
-categories = ["fun"] 
-exclude= ["docs/"]
+categories = ["fun"]
+exclude = ["docs/"]
